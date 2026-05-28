@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-  <title>설문조사</title>
+  <meta charset="UTF-8">
+  <title>설문조사 시작</title>
   <style>
     body {
       font-family: Arial;
@@ -24,16 +25,19 @@
 </head>
 <body>
 
-<div class="box">
-  <h2 id="surveyTitle">행사 만족도 설문</h2>
-
-  <!-- 언어 선택 -->
-  <label for="language">언어 선택</label>
+<div class="box" id="languageSelection">
+  <h2>언어 선택</h2>
+  <label for="language">언어를 선택하세요:</label>
   <select id="language" onchange="changeLanguage()">
     <option value="ko">한국어</option>
     <option value="en">English</option>
     <option value="fr">Français</option>
   </select>
+  <button onclick="startSurvey()">시작</button>
+</div>
+
+<div class="box" id="survey" style="display: none;">
+  <h2 id="surveyTitle">행사 만족도 설문</h2>
 
   <!-- 나이 -->
   <label id="ageLabel">나이</label>
@@ -59,15 +63,20 @@
 </div>
 
 <script>
-  const score = document.getElementById("score");
-  const scoreValue = document.getElementById("scoreValue");
-
-  score.addEventListener("input", () => {
-    scoreValue.innerText = score.value;
-  });
+  let selectedLang = 'ko'; // 기본 언어 설정
 
   function changeLanguage() {
-    const lang = document.getElementById("language").value;
+    selectedLang = document.getElementById("language").value;
+  }
+
+  function startSurvey() {
+    document.getElementById("languageSelection").style.display = "none";
+    document.getElementById("survey").style.display = "block";
+    
+    updateSurveyText();
+  }
+
+  function updateSurveyText() {
     const translations = {
       ko: {
         title: "행사 만족도 설문",
@@ -87,4 +96,48 @@
       },
       fr: {
         title: "Sondage de Satisfaction d'Événement",
-        age
+        ageLabel: "Âge",
+        genderLabel: "Genre",
+        scoreLabel: "Satisfaction (1-5)",
+        submitBtn: "Soumettre",
+        result: "Soumis 👉 Âge: {age}, Genre: {gender}, Satisfaction: {score}"
+      }
+    };
+
+    const selectedText = translations[selectedLang];
+    document.getElementById("surveyTitle").innerText = selectedText.title;
+    document.getElementById("ageLabel").innerText = selectedText.ageLabel;
+    document.getElementById("genderLabel").innerText = selectedText.genderLabel;
+    document.getElementById("scoreLabel").innerText = selectedText.scoreLabel;
+    document.getElementById("submitBtn").innerText = selectedText.submitBtn;
+  }
+
+  const score = document.getElementById("score");
+  const scoreValue = document.getElementById("scoreValue");
+
+  score.addEventListener("input", () => {
+    scoreValue.innerText = score.value;
+  });
+
+  function submitForm() {
+    const age = document.getElementById("age").value;
+    const gender = document.getElementById("gender").value;
+    const score = document.getElementById("score").value;
+
+    const translations = {
+      ko: "제출됨 👉 나이: {age}, 성별: {gender}, 만족도: {score}",
+      en: "Submitted 👉 Age: {age}, Gender: {gender}, Satisfaction: {score}",
+      fr: "Soumis 👉 Âge: {age}, Genre: {gender}, Satisfaction: {score}"
+    };
+
+    const resultText = translations[selectedLang]
+      .replace("{age}", age)
+      .replace("{gender}", gender)
+      .replace("{score}", score);
+
+    document.getElementById("result").innerText = resultText;
+  }
+</script>
+
+</body>
+</html>
