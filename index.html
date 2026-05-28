@@ -1,3 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>설문조사</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 30px;
+    }
+    .box {
+      max-width: 400px;
+      margin: auto;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>행사 만족도 설문</h2>
+
+  <!-- 나이 -->
+  <label>나이</label>
+  <input type="number" id="age" placeholder="나이 입력">
+
+  <!-- 성별 -->
+  <label>성별</label>
+  <select id="gender">
+    <option value="">선택하세요</option>
+    <option value="남">남</option>
+    <option value="여">여</option>
+  </select>
+
+  <!-- 만족도 -->
+  <label>만족도 (1~5점)</label>
+  <input type="range" id="score" min="1" max="5">
+  <span id="scoreValue">3</span>
+
+  <!-- 제출 -->
+  <button onclick="submitForm()">제출</button>
+
+  <p id="result"></p>
+</div>
+
 <script>
   const score = document.getElementById("score");
   const scoreValue = document.getElementById("scoreValue");
