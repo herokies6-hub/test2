@@ -25,14 +25,22 @@
 <body>
 
 <div class="box">
-  <h2>행사 만족도 설문</h2>
+  <h2 id="surveyTitle">행사 만족도 설문</h2>
+
+  <!-- 언어 선택 -->
+  <label for="language">언어 선택</label>
+  <select id="language" onchange="changeLanguage()">
+    <option value="ko">한국어</option>
+    <option value="en">English</option>
+    <option value="fr">Français</option>
+  </select>
 
   <!-- 나이 -->
-  <label>나이</label>
+  <label id="ageLabel">나이</label>
   <input type="number" id="age" placeholder="나이 입력">
 
   <!-- 성별 -->
-  <label>성별</label>
+  <label id="genderLabel">성별</label>
   <select id="gender">
     <option value="">선택하세요</option>
     <option value="남">남</option>
@@ -40,12 +48,12 @@
   </select>
 
   <!-- 만족도 -->
-  <label>만족도 (1~5점)</label>
+  <label id="scoreLabel">만족도 (1~5점)</label>
   <input type="range" id="score" min="1" max="5">
   <span id="scoreValue">3</span>
 
   <!-- 제출 -->
-  <button onclick="submitForm()">제출</button>
+  <button onclick="submitForm()"><span id="submitBtn">제출</span></button>
 
   <p id="result"></p>
 </div>
@@ -58,15 +66,25 @@
     scoreValue.innerText = score.value;
   });
 
-  function submitForm() {
-    const age = document.getElementById("age").value;
-    const gender = document.getElementById("gender").value;
-    const score = document.getElementById("score").value;
-
-    document.getElementById("result").innerText =
-      `제출됨 👉 나이: ${age}, 성별: ${gender}, 만족도: ${score}`;
-  }
-</script>
-
-</body>
-</html>
+  function changeLanguage() {
+    const lang = document.getElementById("language").value;
+    const translations = {
+      ko: {
+        title: "행사 만족도 설문",
+        ageLabel: "나이",
+        genderLabel: "성별",
+        scoreLabel: "만족도 (1~5점)",
+        submitBtn: "제출",
+        result: "제출됨 👉 나이: {age}, 성별: {gender}, 만족도: {score}"
+      },
+      en: {
+        title: "Event Satisfaction Survey",
+        ageLabel: "Age",
+        genderLabel: "Gender",
+        scoreLabel: "Satisfaction (1-5)",
+        submitBtn: "Submit",
+        result: "Submitted 👉 Age: {age}, Gender: {gender}, Satisfaction: {score}"
+      },
+      fr: {
+        title: "Sondage de Satisfaction d'Événement",
+        age
