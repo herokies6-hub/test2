@@ -1,14 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>내 첫 웹</title>
-</head>
-<body>
-  <h1>안녕하세요 👋</h1>
-  <p>이건 내가 만든 첫 웹페이지입니다</p>
+<script>
+  const score = document.getElementById("score");
+  const scoreValue = document.getElementById("scoreValue");
 
-  <button onclick="alert('버튼 눌림!')">
-    눌러보세요
-  </button>
+  score.addEventListener("input", () => {
+    scoreValue.innerText = score.value;
+  });
+
+  function submitForm() {
+    const age = document.getElementById("age").value;
+    const gender = document.getElementById("gender").value;
+    const score = document.getElementById("score").value;
+
+    document.getElementById("result").innerText =
+      `제출됨 👉 나이: ${age}, 성별: ${gender}, 만족도: ${score}`;
+  }
+</script>
+
 </body>
 </html>
